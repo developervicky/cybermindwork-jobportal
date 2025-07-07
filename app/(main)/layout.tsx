@@ -11,10 +11,10 @@ export default async function layout({
   return (
     <div className="relative flex h-full w-full flex-col overflow-auto">
       <MobileSidebar />
-      <section className="bg-white">
+      <nav className="bg-white">
         <Navbar />
         <SearchFilter />
-      </section>
+      </nav>
       {children}
     </div>
   );
