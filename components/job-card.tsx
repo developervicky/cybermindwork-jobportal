@@ -57,7 +57,7 @@ const JobCard = ({ job }: JobCardProps) => {
           </span>
           <span className="flex items-center gap-1 text-sm xl:text-base">
             <Layers className="size-5" />
-            {String((job.maxSalary ?? 0) * 12).slice(0, 2)}LPA
+            {String(((job.maxSalary ?? 0) * 12) / 100000).slice(0, 2)}LPA
           </span>
         </div>
         <div
