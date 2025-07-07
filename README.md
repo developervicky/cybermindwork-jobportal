@@ -1,4 +1,4 @@
-# Cyberworks Job Portal
+# CyberMind Works Job Portal
 
 The TechStack used => **Next.js, Typescript, React, MongoDB, Axios, TailwindCSS, ShadCN, React Hook Form, and Zustand**
 
