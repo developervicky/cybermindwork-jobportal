@@ -1,7 +1,7 @@
 "use client";
 
 import { useModal } from "@/hooks/use-modal-hook";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "sonner";
 import { addYears, format, startOfMonth } from "date-fns";
@@ -41,6 +41,40 @@ import { Calendar } from "../ui/calendar";
 import { Textarea } from "../ui/textarea";
 import FileUpload from "../file-upload";
 
+// Draft management utilities
+const DRAFT_KEY = 'job_form_draft';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const saveDraftToStorage = (data: any) => {
+  try {
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(data));
+    console.log('Draft saved to localStorage');
+  } catch (error) {
+    console.error('Error saving draft:', error);
+  }
+};
+
+const loadDraftFromStorage = () => {
+  try {
+    const draft = localStorage.getItem(DRAFT_KEY);
+    if (draft) {
+      return JSON.parse(draft);
+    }
+  } catch (error) {
+    console.error('Error loading draft:', error);
+  }
+  return null;
+};
+
+const removeDraftFromStorage = () => {
+  try {
+    localStorage.removeItem(DRAFT_KEY);
+    console.log('Draft removed from localStorage');
+  } catch (error) {
+    console.error('Error removing draft:', error);
+  }
+};
+
 export const formSchema = z
   .object({
     companyLogo: z.string().optional(),
@@ -74,6 +108,7 @@ export const formSchema = z
 
 const CreateJobModal = () => {
   const [calendarOpen, setCalendarOpen] = useState(false);
+  const [isDraftSaved, setIsDraftSaved] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -97,11 +132,40 @@ const CreateJobModal = () => {
 
   const isLoading = form.formState.isSubmitting;
 
+  // Load draft when modal opens
+  useEffect(() => {
+    if (isModalOpen) {
+      const savedDraft = loadDraftFromStorage();
+      if (savedDraft) {
+        form.reset(savedDraft);
+        setIsDraftSaved(true);
+        console.log('Draft loaded from localStorage');
+      }
+    }
+  }, [isModalOpen, form]);
+
+  // Watch for form changes to mark as unsaved
+  useEffect(() => {
+    const subscription = form.watch(() => {
+      setIsDraftSaved(false);
+    });
+    return () => subscription.unsubscribe();
+  }, [form]);
+
+  const handleSaveDraft = () => {
+    const formData = form.getValues();
+    saveDraftToStorage(formData);
+    setIsDraftSaved(true);
+    toast.success('Draft saved successfully!');
+  };
+
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const resultValues = { ...values, yearlySalary: values.maxSalary * 12 };
       await axios.post("/api/job-openings", resultValues);
       form.reset();
+      removeDraftFromStorage();
+      setIsDraftSaved(false);
       onClose();
       window.location.reload();
       toast.success("Job Opening create Successfully");
@@ -418,18 +482,19 @@ const CreateJobModal = () => {
                   variant="outline"
                   className="cursor-pointer border-gray-600 md:!px-10 md:!py-6"
                   disabled={isLoading}
-                  onClick={onClose}
+                  onClick={handleSaveDraft}
+                  type="button"
                 >
-                  Save Draft
+                  {isDraftSaved ? 'Draft Saved ✓' : 'Save Draft'}
                   <ChevronsDown className="!h-4 !w-4 text-gray-600" />
                 </Button>
                 <Button
                   variant="default"
                   disabled={isLoading}
-                  onClick={() => {}}
+                  type="submit"
                   className="bg-btn-primary hover:bg-btn-primary/90 cursor-pointer md:!px-10 md:!py-6"
                 >
-                  Publish
+                  {isLoading ? 'Publishing...' : 'Publish'}
                   <ChevronsRight className="!h-4 !w-4 text-white" />
                 </Button>
               </div>
