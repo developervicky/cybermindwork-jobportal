@@ -22,16 +22,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`w-full antialiased`}>
         <Suspense>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem={false}
-            storageKey="cyberworks-theme"
-          >
-            <ModalProvider />
-            {children}
-            <Toaster position="top-center" richColors closeButton />
-          </ThemeProvider>
+          <ModalProvider />
+          {children}
+          <Toaster position="top-center" richColors closeButton />
         </Suspense>
       </body>
     </html>
