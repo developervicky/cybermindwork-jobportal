@@ -162,13 +162,12 @@ const JobSearchResultsPage = () => {
             <p className="mb-4 text-sm text-gray-600 md:text-base">
               We couldn&apos;t find any jobs matching your search criteria.
             </p>
-            <div className="  text-sm text-gray-500">
+            <div className="text-sm text-gray-500">
               <p>Try:</p>
               <ul className="mt-2 space-y-1">
                 <li>• Removing some filters</li>
                 <li>• Using different keywords</li>
                 <li>• Checking your spelling</li>
-                <li>• Expanding your location search</li>
               </ul>
             </div>
             <Button
