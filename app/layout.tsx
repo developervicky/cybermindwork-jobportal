@@ -24,7 +24,7 @@ export default function RootLayout({
         <Suspense>
           <ModalProvider />
           {children}
-          <Toaster position="top-center" richColors closeButton />
+          <Toaster position="top-center" theme="light" richColors closeButton />
         </Suspense>
       </body>
     </html>
