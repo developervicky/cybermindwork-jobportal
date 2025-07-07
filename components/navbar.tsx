@@ -2,12 +2,11 @@
 import React from "react";
 import Image from "next/image";
 import { Button } from "./ui/button";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-hook";
 
 const Navbar = () => {
   const router = useRouter();
-  const pathname = usePathname();
 
   const { onOpen } = useModal();
 
