@@ -33,11 +33,11 @@ const Home = () => {
         </div>
       )}
       {jobOpenings.length > 0 && (
-        <div className="m-10 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <section className="m-10 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {jobOpenings.map((job) => (
             <JobCard key={job._id.toString()} job={job} />
           ))}
-        </div>
+        </section>
       )}
     </>
   );

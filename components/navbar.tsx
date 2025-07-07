@@ -12,7 +12,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="flex w-full items-center justify-center">
+      <nav className="flex w-full items-center justify-center">
         <div className="sticky top-0 z-50 mx-4 mt-5 flex w-full max-w-5xl items-center justify-between rounded-full bg-white px-4 py-3 shadow-md shadow-[#7F7F7F]/20 sm:p-5 sm:px-7">
           <Image
             onClick={() => (window.location.href = "/")}
@@ -66,7 +66,7 @@ const Navbar = () => {
             Create Jobs
           </Button>
         </div>
-      </div>
+      </nav>
     </>
   );
 };
