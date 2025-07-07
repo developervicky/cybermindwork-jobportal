@@ -83,7 +83,7 @@ const JobCard = ({ job }: JobCardProps) => {
           variant="default"
           onClick={() => {
             toast.success(
-              "Hello Recruiter, After Joining Cyberworks the user flow will be continued 🙏",
+              "Hello Recruiter, After Joining Cybermind works the user flow will be continued 🙏",
             );
           }}
           className="bg-btn-primary hover:bg-btn-primary/90 w-full cursor-pointer py-[22px] text-base"
