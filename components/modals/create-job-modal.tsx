@@ -48,7 +48,6 @@ const DRAFT_KEY = 'job_form_draft';
 const saveDraftToStorage = (data: any) => {
   try {
     localStorage.setItem(DRAFT_KEY, JSON.stringify(data));
-    console.log('Draft saved to localStorage');
   } catch (error) {
     console.error('Error saving draft:', error);
   }
@@ -69,7 +68,6 @@ const loadDraftFromStorage = () => {
 const removeDraftFromStorage = () => {
   try {
     localStorage.removeItem(DRAFT_KEY);
-    console.log('Draft removed from localStorage');
   } catch (error) {
     console.error('Error removing draft:', error);
   }
@@ -139,7 +137,6 @@ const CreateJobModal = () => {
       if (savedDraft) {
         form.reset(savedDraft);
         setIsDraftSaved(true);
-        console.log('Draft loaded from localStorage');
       }
     }
   }, [isModalOpen, form]);

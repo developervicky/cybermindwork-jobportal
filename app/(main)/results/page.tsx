@@ -29,11 +29,9 @@ async function fetchJobs(searchParams: {
       },
     );
 
-    console.log("API Query:", queryString);
 
     const response = await axios.get(`/api/jobsearch?${queryString}`);
 
-    console.log(response.data.jobs);
 
     const data = response.data.jobs;
     return data || [];
@@ -67,7 +65,6 @@ const JobSearchResultsPage = () => {
         minSal,
         maxSal,
       });
-      console.log(jobResults);
       setJobs(jobResults);
     } catch (err) {
       setError("Failed to fetch jobs. Please try again.");
